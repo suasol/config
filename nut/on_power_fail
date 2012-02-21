@@ -1,0 +1,13 @@
+#! /bin/sh
+
+# This script is called when
+# a) The UPS switches to battery mode
+# b) Communication is lost with the UPS
+
+# text me 
+CONFIG=/var/lib/nut/.meteorsms/config
+PHONENUMBER=0
+/usr/local/bin/meteorsms --embedded --config $CONFIG $PHONENUMBER -m "UPS $*"
+
+# Now trigger a shutdown, don't wait for the batter to go critical (default behavior)
+upsmon -c fsd
